@@ -42,4 +42,16 @@ public class UserController {
 
     }
 
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException( "User not found with id "+id));
+
+        userRepository.delete(existingUser);
+
+        return ResponseEntity.ok().build();
+
+    }
+
+
 }
